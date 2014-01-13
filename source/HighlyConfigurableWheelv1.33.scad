@@ -1013,6 +1013,18 @@ module hub( height, diameter, boreDiameter, shaftFlatDiameter, nuts, nutSize, se
 	
 			// Remove the captive nut
 			for( i=[0:nuts-1] ) {
+                           if (hexbore) {
+				rotate([ 0,0, (360/nuts)*i+30 ])
+				translate([boreDiameter/2+(diameter-boreDiameter)/4 +setScrewNutOffset,
+						0, height/2 - (height+hubZOffset)/2]) {
+					rotate([0,-90,0]) { 
+						captiveNut( nutSize, setScrewDiameter, 
+							depth=height/2+1, holeLengthTop=hubWidth/2+setScrewNutOffset
+								+(boreDiameter-shaftFlatDiameter), 
+							holeLengthBottom=hubWidth+baseFilletRadius-setScrewNutOffset);
+					}
+				} 
+                         } else {
 				rotate([ 0,0, (360/nuts)*i ])
 				translate([boreDiameter/2+(diameter-boreDiameter)/4 +setScrewNutOffset,
 						0, height/2 - (height+hubZOffset)/2]) {
@@ -1022,8 +1034,8 @@ module hub( height, diameter, boreDiameter, shaftFlatDiameter, nuts, nutSize, se
 								+(boreDiameter-shaftFlatDiameter), 
 							holeLengthBottom=hubWidth+baseFilletRadius-setScrewNutOffset);
 					}
-				}
-			}
+				} 
+                        }
 		}
 	}
 }
