@@ -240,6 +240,7 @@ chamferOnly          = false; // Set to true to use chamfers (straight 45-degree
 //      Use servoNutTrap to create nut traps for bolts used to mount the wheel onto servo arms. This 
 //   feature was suggested by AUGuru. 
 
+hexbore              = true;       // Make the bore a hex shaft vs a circle 
 shaftDiameter        = 8;          // The diameter of the motor shaft
 shaftFlatDiameter    = 6;          // The diameter of the motor shaft at the flat, or shaftDiameter for no flat.
 
@@ -516,11 +517,16 @@ module mountingHoles( shaftDiameter, shaftFlatDiameter, wheelWidth, concavity, s
 	newWidth = wheelWidth-concavity[0]-concavity[1];
 	
 	difference() {
-		cylinder( h=newWidth+1, r=shaftDiameter/2, center=true ); 
-		translate([(shaftDiameter-shaftFlatDiameter+1)/2 + (shaftDiameter/2) 
-				- (shaftDiameter - shaftFlatDiameter),0,0]) 
-			cube( [shaftDiameter-shaftFlatDiameter+1,shaftDiameter,newWidth+2], center=true ); 
-	}
+            if (hexbore) {
+               cylinder(r=shaftDiameter/2/ cos(180/6),h=newWidth+1,$fn=6, center=true);
+            } else {
+				   cylinder( h=newWidth+1, r=shaftDiameter/2, center=true ); 
+		         translate([(shaftDiameter-shaftFlatDiameter+1)/2 + (shaftDiameter/2) 
+				       - (shaftDiameter - shaftFlatDiameter),0,0]) 
+			          cube( [shaftDiameter-shaftFlatDiameter+1,shaftDiameter,newWidth+2], 
+                       center=true ); 
+            }
+          }
 
 	// if we're mounting a servo... 
 	if ( servoHoleDiameter > 0 ) {
@@ -994,14 +1000,31 @@ module hub( height, diameter, boreDiameter, shaftFlatDiameter, nuts, nutSize, se
 	
 			// Remove the bore
 			difference() {
-				cylinder( h=height+1, r=boreDiameter/2, center=true ); 
-				translate([(boreDiameter-shaftFlatDiameter+1)/2 + (boreDiameter/2) 
+                        	if (hexbore) {
+               				cylinder(r=boreDiameter/2/ cos(180/6),h=height+1,$fn=6, center=true);
+            			} else {
+				   	cylinder( h=height+1, r=boreDiameter/2, center=true ); 
+        				translate([(boreDiameter-shaftFlatDiameter+1)/2 + (boreDiameter/2) 
 						- (boreDiameter - shaftFlatDiameter),0,0]) 
-					cube( [boreDiameter-shaftFlatDiameter+1,boreDiameter,height+2], center=true ); 
+					  cube( [boreDiameter-shaftFlatDiameter+1,boreDiameter,height+2], center=true );
+            			} 
 			}
+			
 	
 			// Remove the captive nut
 			for( i=[0:nuts-1] ) {
+                           if (hexbore) {
+				rotate([ 0,0, (360/nuts)*i+30 ])
+				translate([boreDiameter/2+(diameter-boreDiameter)/4 +setScrewNutOffset,
+						0, height/2 - (height+hubZOffset)/2]) {
+					rotate([0,-90,0]) { 
+						captiveNut( nutSize, setScrewDiameter, 
+							depth=height/2+1, holeLengthTop=hubWidth/2+setScrewNutOffset
+								+(boreDiameter-shaftFlatDiameter), 
+							holeLengthBottom=hubWidth+baseFilletRadius-setScrewNutOffset);
+					}
+				} 
+                         } else {
 				rotate([ 0,0, (360/nuts)*i ])
 				translate([boreDiameter/2+(diameter-boreDiameter)/4 +setScrewNutOffset,
 						0, height/2 - (height+hubZOffset)/2]) {
@@ -1011,8 +1034,8 @@ module hub( height, diameter, boreDiameter, shaftFlatDiameter, nuts, nutSize, se
 								+(boreDiameter-shaftFlatDiameter), 
 							holeLengthBottom=hubWidth+baseFilletRadius-setScrewNutOffset);
 					}
-				}
-			}
+				} 
+                        }
 		}
 	}
 }
