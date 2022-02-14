@@ -1,4 +1,4 @@
-# Highly-Configurable-Wheel
+# Highly Configurable Wheel
 A highly customizable wheel STL generator, with multiple tread and spoke patters, suitable for robotics projects and home printing. Create your own version using the customizer at https://www.thingiverse.com/thing:21486
 
 ## Summary ##
