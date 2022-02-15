@@ -59,7 +59,7 @@ Often wheels are built around the tires. In this section, specify the properties
 - `tireID`: Internal diameter (ID) -- How wide is the inside opening?
 - `tireStretch`: Circumferential stretch percentage (usually 1 + 0-5%) -- How much to you want to stretch it to get it on?
 
-## Rim properties
+## Rim Parameters
 The rim sits at at the outside of the spokes and supports the tires or added treads. Installed tires (such as o-rings, rubber bands, etc) are set into grooves carved out of the rim, while treads are added onto it. Keep this in mind when you're using tires -- as an example, the rim height should not be smaller than the radius of o-ring tires.
 
 The rim also supports rotary encoder timing holes for wheel feedback. Use the padding parameters to adjust the location of those holes. See the compiler output for helpful information about the distance indicated by each timing hole. Directional timing holes will produce a second set of holes that are 90 degrees out of phase with the first. This allows you to stack sensors at the same location over the wheel instead of trying to position them along the circumference. Directional timing holes essentially double the resolution. You can also double resolution by looking for both rising and falling edges.
@@ -167,6 +167,7 @@ To mount a servo motor, set `includeHub` to false, set `shaftDiameter` so that t
 - v1.1 4/16/12 7:16PM EDT.
 
 ## Donation 
-Buy me a beer. :) [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=PUKYPBDC4TN9Y)
+Buy me a beer. :) 
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=PUKYPBDC4TN9Y)
  
 
