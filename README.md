@@ -19,7 +19,7 @@ For an easier-to-read and up-to-date version of the instructions, see my blog at
 
 Here it is on github: https://github.com/alexfranke/Highly-Configurable-Wheel
 
-**GET THE HIGHEST VERSION NUMBER!** You can now find the older versions (for reference) in the git repository -- I'll be removing them from here so people don't get confused and download the wrong one.
+**Get the code from the source directory.** You can now find the older versions in there, too -- I'll be removing them from here so people don't get confused and download the wrong one.
 
 In the 1.33 update: JoeyC added some nice features here to support vanes. Thanks!
 
