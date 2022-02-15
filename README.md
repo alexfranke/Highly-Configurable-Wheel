@@ -1,7 +1,19 @@
 # Highly Configurable Wheel
 A highly customizable wheel STL generator, with multiple tread and spoke patters, suitable for robotics projects and home printing. Create your own version using the customizer at https://www.thingiverse.com/thing:21486
 
-## Summary ##
+## Table of Contents
+- [Summary](#summary)
+- [Instructions](#instructions)
+- [Tire Parameters](#tire-parameters)
+- [Rim Parameters](#rim-parameters)
+- [Tread Parameters](#tread-parameters)
+- [Spoke-related Parameters](#spoke-related-parameters)
+- [Hub Parameters](#hub-parameters)
+- [Quality Parameters](#quality-parameters)
+- [Version History](#version-history)
+- [Donation](#donation)
+
+## Summary 
 This is very highly customizable wheel in the way of an OpenSCAD file with 46 parameters that provides a virtually limitless set of combinations and wheel designs. I affectionately refer to it as "One Wheel To Rule Them All."
 
 It can be wide, narrow, big, little, fat hub, skinny hub, no hub, through-hole, servo arm mounted, chamfered, multi-tire, modeled tread, optical encoder-slotted, and more. It even accommodates stretched o-ring tires. It just can't be square, because my sources tell me that won't roll well. The code is extensively documented, and traces out helpful information about the geometry of the wheel/tire, as well as encoder slot metrics (e.g. each rising edge is 42.42mm/1.67in in travel).
@@ -14,7 +26,7 @@ To put it a different way, the tread and spoke designs are not limited to what y
 
 This design combines all my previous wheel designs and adds a lot of new features. For an easier-to-read version of the instructions, see my blog at http://www.thefrankes.com/wp/?p=2674.
 
-## Instructions ##
+## Instructions
 For an easier-to-read and up-to-date version of the instructions, see my blog at http://www.thefrankes.com/wp/?p=2674.
 
 Here it is on github: https://github.com/alexfranke/Highly-Configurable-Wheel
@@ -39,7 +51,7 @@ It's important to note that you can configure this wheel to such an extend that 
 
 ***Remember to see the website for the most up to date instructions.
 
-## Tire Parameters ##
+## Tire Parameters
 Often wheels are built around the tires. In this section, specify the properties of the tires you're using, and this will define the diameter of the wheel. If you're using o-rings, the `tireCSDiameter` should be the cross-section diameter of the o-ring, or if you're using some other flat tire material (such as rubber bands), just specify the its thickness. If you're not using any tire at all, set the `tireCSDiameter` to zero.
 
 - `wheelWidth`: The width (or thickness) of the the wheel
@@ -47,7 +59,7 @@ Often wheels are built around the tires. In this section, specify the properties
 - `tireID`: Internal diameter (ID) -- How wide is the inside opening?
 - `tireStretch`: Circumferential stretch percentage (usually 1 + 0-5%) -- How much to you want to stretch it to get it on?
 
-## Rim properties ##
+## Rim properties
 The rim sits at at the outside of the spokes and supports the tires or added treads. Installed tires (such as o-rings, rubber bands, etc) are set into grooves carved out of the rim, while treads are added onto it. Keep this in mind when you're using tires -- as an example, the rim height should not be smaller than the radius of o-ring tires.
 
 The rim also supports rotary encoder timing holes for wheel feedback. Use the padding parameters to adjust the location of those holes. See the compiler output for helpful information about the distance indicated by each timing hole. Directional timing holes will produce a second set of holes that are 90 degrees out of phase with the first. This allows you to stack sensors at the same location over the wheel instead of trying to position them along the circumference. Directional timing holes essentially double the resolution. You can also double resolution by looking for both rising and falling edges.
@@ -59,7 +71,7 @@ The rim also supports rotary encoder timing holes for wheel feedback. Use the pa
 - `timingHoleOutPad`: The outside padding for the timing holes
 - `directional`: A directional encoder renders two sets of slots, 90 deg out of phase
 
-## Tread Parameters ##
+## Tread Parameters
 In this section, specify the properties of the tire tread you want to render. If you're using a wheel (e.g. o-ring, rubber bands, etc), then use either the `o-rings` or `slots` settings, which will cut a groove (or grooves) in the wheel rim to fit the tires. The othertreat styles will render a tread pattern protruding out from the tire surface by the amount you specify in third part of `knobSize`.
 
 Imagine the tire is mounted on a robot and facing straight at you. The `knobSize` parameter defines the size and shape of knobs in an [x,y,z] format, where x goes across the rim, y goes up and down along the perimeter of the wheel, and z protrudes out from the wheel toward you.
@@ -95,7 +107,7 @@ Tread styles are:
 - `zigX`: Each knob is in the shape of a zig-zag protruding from the surface of the wheel, whose size is specified by `knobSize`
 - `v`: Each knob is in the shape of a "v" protruding from the surface of the wheel, whose size is specified by `knobSize`
 
-## Spoke-related Parameters ##
+## Spoke-related Parameters
 This section is used to define the spoke style of the wheel. Some of the properties are only applicable to certain wheel types, and these properties can be used together in creative ways to create a wide range of tire designs.
 
 The `proportion` property affects how some spokes are rendered. The first number is the proportion of the design from the center of the wheel to the inside of the rim, and the second number is the proportion of the width inside of the wheel. For example, to create spokes that are roughly in the shape of a "U", you can use a `circle` style, and set the proportion to [1.5, 1.0], for cirle spokes that are 150% as long as the distance from the center to the inside of the rim, 100% as wide.
@@ -122,7 +134,7 @@ The spoke styles are:
 
 
 
-## Hub Parameters ##
+## Hub Parameters
 These properties define the hub -- or how the wheel connects to the motor. The default values for the captive nut are precise for a M3 nut and will make the nut a very tight (if not impossible) fit. I prefer this because it allows you to "melt" the nut into place with a soldering iron. However, if you don't have a solder iron or prefer a looser fit, then just adjust the nut diameter and thickness. (M3 hardware is, by default, set to 3mm screw diameter, 5.4mm nut diameter, and 2.3mm nut thickness.) Similarly, the holes for the motor shaft and grub screw are also precise. This allows the holes to be drilled out for a more precise fit. Again, you can adjust these to suit your needs.
 
 The `hubZOffset` can be used to "sink" the hub into the wheel, and it defaults to half the wheel thickness. For example, when the `hubHeight` is 10 and the `hubZOffset` is -2, then the hub will protrude 8mm from the wheel, but the shaft hole will be 10mm deep. The set screw will still be positioned in the middle of the exposed vertical height, and the fillet/chamfer will also be rendered in the correct position. This property is also useful if you want to poke a hole entirely through the wheel. (e.g. If the wheel is 6mm thick, set the hub height to 16 and the `hubZOffset` to -6, and you'll get a hub that protrudes 10mm from the wheel surface with a hole that extends all the way through the wheel.)
@@ -142,12 +154,10 @@ To mount a servo motor, set `includeHub` to false, set `shaftDiameter` so that t
 - `topFilletRadius`: The radius of the fillet (rounded part) at the top of the hub.
 - `chamferOnly`: Set to true to use chamfers (straight 45-degree angles) instead of fillets.
 
-## Quality Parameters ##
+## Quality Parameters 
 - `$fn`: Default quality for most circle parts.
 
-
-
-## Version History ##
+## Version History 
 - v1.33 11/8/12 4:13PM EDT. Vane support by JoeyC.
 - v1.32 6/9/12 4:13PM EDT. (+v-grooves +flats)
 - v1.23 4/23/12 1:52AM EDT. 
@@ -156,4 +166,7 @@ To mount a servo motor, set `includeHub` to false, set `shaftDiameter` so that t
 - v1.2 4/17/12 11:56PM EDT.
 - v1.1 4/16/12 7:16PM EDT.
 
+## Donation 
+Buy me a beer. :) [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=PUKYPBDC4TN9Y)
+ 
 
