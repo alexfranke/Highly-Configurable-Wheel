@@ -144,8 +144,7 @@ vaneOffset		= 1;			// Offset into wheel of vanes
 // 		 * v - Each knob is in the shape of a "v" protruding from the surface of the wheel, whose 
 // 				size is specified by knobSize
 
-treadStyle        = "v-grooves";  // none, cross, o-rings, v-grooves, squares, spheres, cylindersX, 
-                                  // 	  cylindersY, cylindersZ, spikes, slots, x, zigX, v
+treadStyle        = "v-grooves";  // [none, cross, o-rings, v-grooves, squares, spheres, cylindersX, cylindersY, cylindersZ, spikes, slots, x, zigX, v]
 knobSize          = [90,1.5,1];   // The size of each knob [across wheel, along the perimeter, prodruding]
                                   //   or for v-grooves, [angle, depth, ignored]
 radialTreadSets   = 15;           // How many sets of treads to render around the wheel (2 rows per set).
@@ -180,7 +179,7 @@ spaceBetweenTires = 2;            // For o-rings/v-grooves, the space between ea
 //    faces of the wheel. You can use a negative number to make the spoke area stick out further than 
 //    than the rim. The hub position will be based on the inner surface resulting from this inset. 
 
-spokeStyle        = "circle";   // none, biohazard, circle, circlefit, diamond, line, rectangle, spiral, fill
+spokeStyle        = "circle";   // [ none, biohazard, circle, circlefit, diamond, line, rectangle, spiral, fill ]
 spokeInset        = [8,0];      // The [inner,outer] inset of the spoke area from the surface
 numberOfSpokes    = 5;          // Number of "spokes." Set this to three if you're doing the biohazard design
 spokeWidth        = 3;          // This is how wide each spoke is.

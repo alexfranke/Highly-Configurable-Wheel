@@ -158,11 +158,11 @@ To mount a servo motor, set `includeHub` to false, set `shaftDiameter` so that t
 - `$fn`: Default quality for most circle parts.
 
 ## Version History 
-- v1.33 11/8/12 4:13PM EDT. Vane support by JoeyC.
-- v1.32 6/9/12 4:13PM EDT. (+v-grooves +flats)
-- v1.23 4/23/12 1:52AM EDT. 
-- v1.22 4/21/12 6:38PM EDT. 
-- v1.21 4/18/12 1:16AM EDT. 
+- v1.33 11/8/12 4:13PM EDT. Vane support by JoeyC. (38,674 downloads)
+- v1.32 6/9/12 4:13PM EDT. (+v-grooves +flats) (36,748 downloads)
+- v1.23 4/23/12 1:52AM EDT. (340 downloads)
+- v1.22 4/21/12 6:38PM EDT. (72 downloads)
+- v1.21 4/18/12 1:16AM EDT. (187 downloads)
 - v1.2 4/17/12 11:56PM EDT.
 - v1.1 4/16/12 7:16PM EDT.
 
