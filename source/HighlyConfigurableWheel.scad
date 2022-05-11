@@ -17,6 +17,7 @@
  *       Some features were inspired or suggested by commenters. I'll try to add credits in the code
  *     for those features. 
  * 
+ * v1.34, May 11, 2022: Removed deprecated assign()s.
  * v1.33, Oct 16, 2012: Added code to generate vanes for use with slot detectors.  JEC
  * v1.32, Jun 9, 2012: Fixed a bug that cause outer nut trap to not render properly. 
  * v1.31, Jun 9, 2012: Fixed a bug that didn't include shaft flats when rendered without a hub.
@@ -89,7 +90,7 @@ directional    = true;      // A directional encoder renders two sets of slots, 
 // Slot detector vane properties
 // These settings generate small vanes on the inside of the rim for use with
 // IR slot detectors that are too narrow to be put over the wheel.
-vaneCount		= 30;			// Number of slot detector vanes to put inside rim
+vaneCount		= 0;			// Number of slot detector vanes to put inside rim
 vaneHeight		= 7;			// The height of the vanes
 vaneWidth		= 1;			// Width of vanes
 vaneLength		= 4;			// Length of vanes
@@ -356,8 +357,9 @@ module wheel() {
 				rotate([0,0,vaneAngle])
 					translate([-(wheelDiameter/2)+rimHeight-.2,-vaneLength/2,(rimWidth/2)-vaneOffset-vaneWidth])
 						cube([vaneHeight+.2,vaneLength,vaneWidth]);
-			assign( len1 = outerCircumferenceStretched/vaneCount, 
-				len2 = outerCircumferenceKnobbed/vaneCount) {
+			len1 = outerCircumferenceStretched/vaneCount;
+			len2 = outerCircumferenceKnobbed/vaneCount; 
+            {
 				echo ( str("For o-rings, each vane (same edge) is ", round2(len1), "mm (", 
 					round2(len1/25.4), "in).") );
 				echo ( str("For knobbed treads, each vane (same edge) is roughly ", round2(len2), 
@@ -372,7 +374,8 @@ module wheel() {
 			// Punch out timing holes	
 			if ( timingHoles > 0 ) {
 				if ( directional ) {
-					assign( holeHeight=(rimHeight-timingHolePad[0]-timingHolePad[2]-timingHolePad[1])/2 ) {
+					holeHeight=(rimHeight-timingHolePad[0]-timingHolePad[2]-timingHolePad[1])/2;
+                    {
 						// outer holes 
 						placeTimingHoles(timingHoles, holeHeight, rimWidth, (wheelDiameter/2)-timingHolePad[2]);
 
@@ -381,8 +384,9 @@ module wheel() {
 						placeTimingHoles(timingHoles, holeHeight, rimWidth, 
 							(wheelDiameter/2)-timingHolePad[2]-holeHeight-timingHolePad[1]);
 					}	
-					assign( len1 = outerCircumferenceStretched/(timingHoles*2), 
-		  					len2 = outerCircumferenceKnobbed/(timingHoles*2) ) {
+					len1 = outerCircumferenceStretched/(timingHoles*2);
+		  			len2 = outerCircumferenceKnobbed/(timingHoles*2);
+                    {
 						echo ( str("For o-rings, each timing mark (same edge) is ", round2(len1), "mm (", 
 							round2(len1/25.4), "in).") );
 						echo ( str("For knobbed treads, each timing mark (same edge) is roughly ", round2(len2), 
@@ -391,8 +395,9 @@ module wheel() {
 				} else {
 					placeTimingHoles(timingHoles, rimHeight-timingHolePad[0]-timingHolePad[2], 
 						rimWidth, (wheelDiameter/2)-timingHolePad[2]);
-					assign( len1 = outerCircumferenceStretched/(timingHoles), 
-		  					len2 = outerCircumferenceKnobbed/(timingHoles) ) {
+					len1 = outerCircumferenceStretched/(timingHoles); 
+		  			len2 = outerCircumferenceKnobbed/(timingHoles);
+                    {
 						echo ( str("For o-rings, each timing mark (same edge) is ", round2(len1), "mm (", 
 							round2(len1/25.4), "in).") );
 						echo ( str("For knobbed treads, each timing mark (same edge) is roughly ", round2(len2), 
@@ -403,7 +408,8 @@ module wheel() {
 
 			// punch out tires
 			if ( ( treadStyle == "o-rings" ) || ( treadStyle == "v-grooves" ) ) {
-				assign( extent=(numTires-1)*(tireDistance/2) ) {
+				extent=(numTires-1)*(tireDistance/2);
+                {
 					for( x=[-extent:tireDistance:extent] ) {
 						translate([0,0,x]) {
 							if ( treadStyle == "o-rings" )
@@ -414,8 +420,9 @@ module wheel() {
 					}
 				}
 			} else if ( treadStyle == "slots" ) {	// punch out slots if necessary 
-				assign( separation = (rimWidth-(numberOfKnobs*knobSize[0])) / (numberOfKnobs+1) ) 
-				assign( dist = knobSize[0] + separation ) {
+				separation = (rimWidth-(numberOfKnobs*knobSize[0])) / (numberOfKnobs+1); 
+				dist = knobSize[0] + separation;
+                {
 					translate([0,0,-rimWidth/2] ) 
 					for ( i=[0:numberOfKnobs-1] ) {
 						translate([0,0,separation+(dist*i)] ) 
@@ -433,7 +440,8 @@ module wheel() {
 			// The spokes
 			difference() {
 				union() {
-					assign( d = wheelDiameter - (rimHeight*2) ) {
+					d = wheelDiameter - (rimHeight*2);
+                    {
 						if ( spokeStyle == "fill" ) { 
 							cylinder( h=wheelWidth, r=d/2, center=true );
 						} else if ( spokeStyle == "biohazard" ) { 
@@ -561,8 +569,9 @@ module placeTimingHoles( holeCount, holeHeight, wheelWidth, radius ) {
 module placeKnobs( wheelWidth, wheelDiameter, treadStyle, knobSize, radialTreadSets, numberOfKnobs, 
 	staggerOffset, lineThickness ) {
 	
-	assign( knobDistance = knobSize[0] + (( wheelWidth - knobSize[0]*numberOfKnobs - staggerOffset ) / 
-			(numberOfKnobs-1)) ) {
+	knobDistance = knobSize[0] + (( wheelWidth - knobSize[0]*numberOfKnobs - staggerOffset ) / 
+			(numberOfKnobs-1));
+    {
 		
 		doTreadSet( wheelWidth, wheelDiameter, treadStyle, knobSize, radialTreadSets, numberOfKnobs, 
 			knobDistance, lineThickness ); 
@@ -682,8 +691,8 @@ module doKnob( treadStyle, knobSize, lineThickness, foundationHeight ) {
 		    	cube([newSize[0],newSize[1],lineThickness], center=true);
 		}
 	} else if ( treadStyle == "x" ) {
-		assign( len = sqrt( pow(newSize[2], 2) + pow(newSize[1], 2)), 
-			    theta = atan( newSize[1]/newSize[2] ) )
+		len = sqrt( pow(newSize[2], 2) + pow(newSize[1], 2) );
+        theta = atan( newSize[1]/newSize[2] );
 		translate([newSize[0]/2-foundationHeight,0,0])
 		intersection() {	
 			union() {
@@ -697,8 +706,8 @@ module doKnob( treadStyle, knobSize, lineThickness, foundationHeight ) {
 		    cube(newSize, center=true);
 		}
 	} else if ( treadStyle == "zigX" ) {
-		assign( seglen = sqrt( pow(newSize[2]/4, 2) + pow(newSize[1]/2, 2)), 
-			    theta = atan( (newSize[1]/2)/(newSize[2]/4) ) )
+		seglen = sqrt( pow(newSize[2]/4, 2) + pow(newSize[1]/2, 2) ); 
+        theta = atan( (newSize[1]/2)/(newSize[2]/4) );
 		translate([newSize[0]/2-foundationHeight,0,0])
 		intersection() {	
 			union() {	// extend seglen so patterns match neighboring patterns
@@ -716,8 +725,8 @@ module doKnob( treadStyle, knobSize, lineThickness, foundationHeight ) {
 		    cube(newSize, center=true);
 		}
 	} else if ( treadStyle == "v" ) {
-		assign( seglen = sqrt( pow(newSize[2]/2, 2) + pow(newSize[1], 2)), 
-			    theta = atan( (newSize[1])/(newSize[2]/2) ) )
+		seglen = sqrt( pow(newSize[2]/2, 2) + pow(newSize[1], 2) ); 
+        theta = atan( (newSize[1])/(newSize[2]/2) );
 		translate([newSize[0]/2-foundationHeight,0,0])
 		intersection() {	
 			union() {
@@ -760,13 +769,15 @@ module diamondSpoke( wheelDiameter, wheelWidth, lineWidth, proportion ) {
 
 	// Let's make the lines the correct thickness even after the transformations 
 	// are made... Maybe there's a better way? 
-	render()
-	assign( leg=sqrt( 2*pow(wheelDiameter/4,2 ) ) ) // Euclid rocks. 
-	assign( p=(wheelDiameter/2)*proportion[0], q=(wheelDiameter/2)*proportion[1] )
-	assign( a=sqrt((p*p)/4 + (q*q)/4) ) 
-	assign( h=(p*q)/(2*a) )
-	assign( theta=2*asin(q/(2*a)) ) 
-	assign( prop=( 2*cos(theta/2)*(h-(2*lineWidth)) ) / ( sin(theta)*p ) ) {
+	render();
+	leg=sqrt( 2*pow(wheelDiameter/4,2 ) ); // Euclid rocks. 
+	p=(wheelDiameter/2)*proportion[0];
+    q=(wheelDiameter/2)*proportion[1];
+	a=sqrt((p*p)/4 + (q*q)/4);
+	h=(p*q)/(2*a);
+	theta=2*asin(q/(2*a));
+	prop=( 2*cos(theta/2)*(h-(2*lineWidth)) ) / ( sin(theta)*p );
+    {
 		translate ( [-p/2, 0, 0] ) {
 			difference() {
 				scale([proportion[0],proportion[1],1]) {
@@ -799,9 +810,12 @@ module circleSpokes( wheelDiameter, wheelWidth, lineWidth, proportion, numberofS
 
 }
 module circleSpoke( wheelDiameter, wheelWidth, lineWidth, proportion ) {
-	render()
-	assign( ox=(wheelDiameter/2)*proportion[0], oy=(wheelDiameter/2)*proportion[1] )
-	assign( ix=ox-(lineWidth*2), iy=oy-(lineWidth*2) ) {
+	render();
+	ox=(wheelDiameter/2)*proportion[0];
+    oy=(wheelDiameter/2)*proportion[1];
+	ix=ox-(lineWidth*2);
+    iy=oy-(lineWidth*2);
+    {
 		translate ( [-ox/2, 0, 0] ) {
 			difference() {
 				scale([proportion[0],proportion[1],1])
@@ -826,9 +840,12 @@ module rectangleSpokes( wheelDiameter, wheelWidth, lineWidth, proportion, number
 	}
 }
 module rectangleSpoke( wheelDiameter, wheelWidth, lineWidth, proportion ) {
-	render()
-	assign( ox=(wheelDiameter/2)*proportion[0], oy=(wheelDiameter/2)*proportion[1] )
-	assign( ix=ox-(lineWidth*2), iy=oy-(lineWidth*2) ) {
+	render();
+	ox=(wheelDiameter/2)*proportion[0];
+    oy=(wheelDiameter/2)*proportion[1];
+	ix=ox-(lineWidth*2);
+    iy=oy-(lineWidth*2);
+    {
 		translate ( [-ox/2, 0, 0] ) {
 			difference() {
 				cube( [ox, oy, wheelWidth], center=true); 
