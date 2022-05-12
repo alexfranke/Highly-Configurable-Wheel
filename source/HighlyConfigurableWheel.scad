@@ -62,7 +62,7 @@
 //   other flat tire material (such as rubber bands), jsut specify the its thickness. If you're not
 //   using any tire at all, set the tireCSDiameter to zero. 
 
-wheelWidth     = 15;    // The width (or thickness) of the wheel at the rim.
+wheelWidth     = 20;    // The width (or thickness) of the wheel at the rim.
 tireCSDiameter = 4;     // Cross-sectional diameter (CS) -- How thick is the tire rubber?
 tireID         = 93;    // Internal diameter (ID) -- How wide is the inside opening? 
 tireStretch    = 1.01;  // Circumferential stretch percentage (usually 1 + 0-5%, e.g. 1.02) -- How 
@@ -91,9 +91,9 @@ directional    = true;      // A directional encoder renders two sets of slots, 
 // These settings generate small vanes on the inside of the rim for use with
 // IR slot detectors that are too narrow to be put over the wheel.
 vaneCount		= 0;			// Number of slot detector vanes to put inside rim
-vaneHeight		= 7;			// The height of the vanes
+vaneHeight		= 0;			// The height of the vanes
 vaneWidth		= 1;			// Width of vanes
-vaneLength		= 4;			// Length of vanes
+vaneLength		= 0;			// Length of vanes
 vaneOffset		= 1;			// Offset into wheel of vanes
 
 // Tread Parameters:
@@ -145,13 +145,13 @@ vaneOffset		= 1;			// Offset into wheel of vanes
 // 		 * v - Each knob is in the shape of a "v" protruding from the surface of the wheel, whose 
 // 				size is specified by knobSize
 
-treadStyle        = "v-grooves";  // [none, cross, o-rings, v-grooves, squares, spheres, cylindersX, cylindersY, cylindersZ, spikes, slots, x, zigX, v]
-knobSize          = [90,1.5,1];   // The size of each knob [across wheel, along the perimeter, prodruding]
+treadStyle        = "squares";  // [none, cross, o-rings, v-grooves, squares, spheres, cylindersX, cylindersY, cylindersZ, spikes, slots, x, zigX, v]
+knobSize          = [2,3,1];   // The size of each knob [across wheel, along the perimeter, prodruding]
                                   //   or for v-grooves, [angle, depth, ignored]
-radialTreadSets   = 15;           // How many sets of treads to render around the wheel (2 rows per set).
-numberOfKnobs     = 4;            // The number of knobs to render per row. 
-staggerOffset     = 2;            // A distance to offset the staggered rows. 
-lineThickness     = 1;            // The line thickness for "drawn" styles, such as "x" and "zigX"
+radialTreadSets   = 20;           // How many sets of treads to render around the wheel (2 rows per set).
+numberOfKnobs     = 5;            // The number of knobs to render per row. 
+staggerOffset     = 1;            // A distance to offset the staggered rows. 
+lineThickness     = 5;            // The line thickness for "drawn" styles, such as "x" and "zigX"
 maxTires          = 3;            // For o-rings/v-grooves, the maximum number of tires per wheel
 spaceBetweenTires = 2;            // For o-rings/v-grooves, the space between each tire, if more than one 
 
@@ -180,11 +180,11 @@ spaceBetweenTires = 2;            // For o-rings/v-grooves, the space between ea
 //    faces of the wheel. You can use a negative number to make the spoke area stick out further than 
 //    than the rim. The hub position will be based on the inner surface resulting from this inset. 
 
-spokeStyle        = "circle";   // [ none, biohazard, circle, circlefit, diamond, line, rectangle, spiral, fill ]
-spokeInset        = [8,0];      // The [inner,outer] inset of the spoke area from the surface
-numberOfSpokes    = 5;          // Number of "spokes." Set this to three if you're doing the biohazard design
-spokeWidth        = 3;          // This is how wide each spoke is.
-proportion        = [1.4,1.4];  // proportion to rim, proportion of width
+spokeStyle        = "rectangle";   // [ none, biohazard, circle, circlefit, diamond, line, rectangle, spiral, fill ]
+spokeInset        = [4,8];      // The [inner,outer] inset of the spoke area from the surface
+numberOfSpokes    = 6;          // Number of "spokes." Set this to three if you're doing the biohazard design
+spokeWidth        = 2;          // This is how wide each spoke is.
+proportion        = [2.4,1.4];  // proportion to rim, proportion of width, for rectangle, diamond, circle
 curvature         = 0.66;       // For "spiral", this is how curvey the spokes are. >0, but <=1, where 
                                 //     1 is a half circle
 reverse           = false;      // For "spiral", setting this to "true" reverses the direction of the spirals
@@ -204,8 +204,8 @@ concavity         = [0,0];      // Concavity distance of spoke area for [inside,
 //      Use innerCircleDiameter to specify a solid inner circle to use as a base for the hub. This can 
 //   be useful if you need a a solid surface for servo mounting hardware or for the base hub fillet/chamfer.
 
-includeHub           = true; // Set to false to remove the hub and only include the shaft diameter hole. 
-hubDiameter          = 15;    // The diameter of the hub portion of the wheel
+includeHub           = true;  // Set to false to remove the hub and only include the shaft diameter hole. 
+hubDiameter          = 25;    // The diameter of the hub portion of the wheel
 hubHeight            = 12;    // The total height of the hub
 hubZOffset           = 0;     // The Z position of the hub, negative numbers from the surface of the wheel 
 innerCircleDiameter  = 30;    // The diameter of the solid inner circle under the hub, or zero for none. 
@@ -240,7 +240,7 @@ chamferOnly          = false; // Set to true to use chamfers (straight 45-degree
 //      Use servoNutTrap to create nut traps for bolts used to mount the wheel onto servo arms. This 
 //   feature was suggested by AUGuru. 
 
-hexbore              = true;       // Make the bore a hex shaft vs a circle 
+hexbore              = false;      // Make the bore a hex shaft vs a circle 
 shaftDiameter        = 8;          // The diameter of the motor shaft
 shaftFlatDiameter    = 6;          // The diameter of the motor shaft at the flat, or shaftDiameter for no flat.
 
@@ -249,7 +249,7 @@ setScrewDiameter     = 3;          // The diameter of the set screw. 3 is the de
 setScrewTrap         = [5.4, 2.3]; // Size [indiameter, thickness] of set screw nut. The depth is set automatically.
 setScrewNutDiameter  = 5.4;        // The "diameter" of the captive nut, from flat to flat (the "in-diameter")
 setScrewNutThickness = 2.3;        // The thickness of the captive nut
-setScrewNutOffset    = 0;          // The distance to offset the nut from the center of the material. -/+ = in/out
+setScrewNutOffset    = -2;          // The distance to offset the nut from the center of the material. -/+ = in/out
 
 servoHoleDiameter    = 0;          // The diameter of servo arm hounting holes, or zero if no holes
 servoHoleDistance1   = 25;         // Distance across servo horn from hole to hole (0 to ignore)
@@ -262,7 +262,7 @@ outerNutTrap         = [12.5,0];   // Size [indiameter, depth] of a captive nut,
 
 // Quality Parameters: 
 
-$fn = 50;  // Default quality for most circle parts. 
+$fn = 100;  // Default quality for most circle parts. 
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -496,7 +496,7 @@ module wheel() {
 	
 			// The hub	
 			if ( includeHub ) {
-				translate([0,0, hubHeight/2 + wheelWidth/2 + hubZOffset - concavity[0]]) 
+				translate([0,0, hubHeight/2 + wheelWidth/2 + hubZOffset - concavity[0]])
 					hub(hubHeight, hubDiameter, shaftDiameter, shaftFlatDiameter,
 						setScrewCount, setScrewTrap, setScrewDiameter, setScrewNutOffset,
 						hubZOffset, baseFilletRadius, topFilletRadius, chamferOnly);
@@ -511,7 +511,7 @@ module wheel() {
 		} else if ( treadStyle == "slots" ) {
 			// no need to render anything here... 
 		} else {		// The rest are all knob designs 
-			placeKnobs( wheelWidth, wheelDiameter, treadStyle, knobSize, radialTreadSets, numberOfKnobs, 
+			placeKnobs( rimWidth, wheelDiameter, treadStyle, knobSize, radialTreadSets, numberOfKnobs, 
 				staggerOffset, lineThickness ); 
 		}
 	}
@@ -523,17 +523,17 @@ module mountingHoles( shaftDiameter, shaftFlatDiameter, wheelWidth, concavity, s
 
 	newWidth = wheelWidth-concavity[0]-concavity[1];
 	
-	difference() {
-            if (hexbore) {
-               cylinder(r=shaftDiameter/2/ cos(180/6),h=newWidth+1,$fn=6, center=true);
-            } else {
-				   cylinder( h=newWidth+1, r=shaftDiameter/2, center=true ); 
-		         translate([(shaftDiameter-shaftFlatDiameter+1)/2 + (shaftDiameter/2) 
-				       - (shaftDiameter - shaftFlatDiameter),0,0]) 
-			          cube( [shaftDiameter-shaftFlatDiameter+1,shaftDiameter,newWidth+2], 
-                       center=true ); 
-            }
-          }
+	if (hexbore) {
+		cylinder(r=shaftDiameter/2/ cos(180/6),h=newWidth+1,$fn=6, center=true);
+	} else {
+		difference() {
+			cylinder( h=newWidth+1, r=shaftDiameter/2, center=true ); 
+			translate([(shaftDiameter-shaftFlatDiameter+1)/2 + (shaftDiameter/2) 
+				- (shaftDiameter - shaftFlatDiameter),0,0])
+				cube( [shaftDiameter-shaftFlatDiameter+1,shaftDiameter,newWidth+2], 
+					center=true ); 
+		}
+	}
 
 	// if we're mounting a servo... 
 	if ( servoHoleDiameter > 0 ) {
@@ -568,7 +568,10 @@ module placeTimingHoles( holeCount, holeHeight, wheelWidth, radius ) {
 
 module placeKnobs( wheelWidth, wheelDiameter, treadStyle, knobSize, radialTreadSets, numberOfKnobs, 
 	staggerOffset, lineThickness ) {
-	
+
+	echo ( str("wheelWidth ", wheelWidth) );
+
+        
 	knobDistance = knobSize[0] + (( wheelWidth - knobSize[0]*numberOfKnobs - staggerOffset ) / 
 			(numberOfKnobs-1));
     {
@@ -967,7 +970,7 @@ module lineSpoke( wheelWidth, spokeWidth ) {
 
 // The hub (the part that holds the wheel onto the motor
 module hub( height, diameter, boreDiameter, shaftFlatDiameter, nuts, nutSize, setScrewDiameter, 
-	setScrewNutOffset=0,	hubZOffset=0, baseFilletRadius=0, topFilletRadius=0, chamferOnly=false) {
+	setScrewNutOffset=0, hubZOffset=0, baseFilletRadius=0, topFilletRadius=0, chamferOnly=false) {
 
 	hubWidth=(diameter-boreDiameter)/2;
 
@@ -1015,16 +1018,16 @@ module hub( height, diameter, boreDiameter, shaftFlatDiameter, nuts, nutSize, se
 			}
 	
 			// Remove the bore
-			difference() {
-                if (hexbore) {
-                    cylinder(r=boreDiameter/2/ cos(180/6),h=height+1,$fn=6, center=true);
-            	} else {
-				   	cylinder( h=height+1, r=boreDiameter/2, center=true ); 
-        				translate([(boreDiameter-shaftFlatDiameter+1)/2 + (boreDiameter/2) 
-						- (boreDiameter - shaftFlatDiameter),0,0]) 
-					  cube( [boreDiameter-shaftFlatDiameter+1,boreDiameter,height+2], center=true );
-                }
-            }
+			if ( hexbore ) {
+				cylinder( r=boreDiameter/2 / cos(180/6), h=height+1, $fn=6, center=true );
+			} else {
+				difference() {
+					cylinder( h=height+1, r=boreDiameter/2, center=true );
+					translate([(boreDiameter-shaftFlatDiameter+1)/2 + (boreDiameter/2) 
+							- (boreDiameter - shaftFlatDiameter),0,0]) 
+						cube( [boreDiameter-shaftFlatDiameter+1,boreDiameter,height+2], center=true );
+				}
+			}
 			
 			// Remove the captive nut
 			for( i=[0:nuts-1] ) {
