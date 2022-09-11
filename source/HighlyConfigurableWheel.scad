@@ -458,7 +458,7 @@ module wheel() {
 							circleSpokes( d, wheelWidth, spokeWidth, proportion, numberOfSpokes );
 						} else if ( spokeStyle == "spiral" ) {
 							spiralSpokes( d, wheelWidth, numberOfSpokes,
-								spokeWidth, curvature, reverse, spiralSpoke);
+								spokeWidth, curvature, reverse);
 						}
 					}
 	
